@@ -1,0 +1,31 @@
+syntax = "proto3";
+import public "google/protobuf/empty.proto";
+
+option java_package = "org.example";
+
+service ProductService {
+  rpc getProduct(ProductIdentifier) returns (ProductDetails) {};
+  rpc getAllProducts(google.protobuf.Empty) returns (stream ProductDetails) {};
+  rpc getProducts(stream ProductIdentifier) returns (stream ProductDetails) {};
+  rpc checkProductsAvailable(stream ProductRequest) returns (ProductRequestResult) {};
+}
+
+message ProductIdentifier {
+  int64 id = 1;
+}
+
+message ProductDetails {
+  int64 id = 1;
+  string name = 2;
+  float price = 3;
+  int32 stockQuantity = 4;
+}
+
+message ProductRequest {
+  int64 id = 1;
+  int32 quantity = 2;
+}
+
+message ProductRequestResult {
+  bool available = 1;
+}
