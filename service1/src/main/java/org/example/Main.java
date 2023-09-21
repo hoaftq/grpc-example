@@ -24,6 +24,7 @@ public class Main {
 
         var server = Grpc.newServerBuilderForPort(4000, credentials)
                 .addService(new ProductServiceImpl())
+                .addService(new CategoryServiceImpl())
                 .build();
         server.start();
         server.awaitTermination();

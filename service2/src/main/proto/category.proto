@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "org.example";
+option java_multiple_files = true;
+
+service CategoryService {
+  rpc getCategory(CategoryIdentifier) returns (Category) {};
+  rpc getAllCategories(Blank) returns (stream Category);
+  rpc getCategories(stream CategoryIdentifier) returns (stream Category) {};
+}
+
+message Blank {
+}
+
+message CategoryIdentifier {
+  string id = 1;
+}
+
+message Category {
+  string id = 1;
+  string name = 2;
+}
