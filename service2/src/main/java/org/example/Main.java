@@ -34,5 +34,6 @@ public class Main {
         var categoryClient = new CategoryClient(channel);
         categoryClient.executeWithBlockingStub();
         categoryClient.executeWithStub();
+        categoryClient.executeWithDeadline();
     }
 }

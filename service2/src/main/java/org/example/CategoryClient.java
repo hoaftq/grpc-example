@@ -7,6 +7,7 @@ import io.grpc.stub.StreamObserver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class CategoryClient {
 
@@ -80,6 +81,42 @@ public class CategoryClient {
             }
         });
         requestObserver.onCompleted();
+
+        Thread.sleep(5000);
+    }
+
+    public void executeWithDeadline() throws InterruptedException {
+        System.out.println("3. Execute with deadline");
+        var blockingStub = CategoryServiceGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(500, TimeUnit.MILLISECONDS);
+
+        try {
+            blockingStub.getQuantity(CategoryIdentifier.newBuilder().build());
+        } catch (StatusRuntimeException e) {
+
+            // This will print out DEADLINE_EXCEEDED
+            System.out.println(e.getStatus());
+        }
+
+
+        var stub = CategoryServiceGrpc.newStub(channel)
+                .withDeadlineAfter(500, TimeUnit.MILLISECONDS);
+        stub.getQuantity(CategoryIdentifier.newBuilder().build(), new StreamObserver<>() {
+            @Override
+            public void onNext(Quantity value) {
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+                // This will print out DEADLINE_EXCEEDED
+                System.out.println(Status.fromThrowable(t));
+            }
+
+            @Override
+            public void onCompleted() {
+            }
+        });
 
         Thread.sleep(5000);
     }

@@ -7,6 +7,8 @@ service CategoryService {
   rpc getCategory(CategoryIdentifier) returns (Category) {};
   rpc getAllCategories(Blank) returns (stream Category);
   rpc getCategories(stream CategoryIdentifier) returns (stream Category) {};
+
+  rpc getQuantity(CategoryIdentifier) returns (Quantity);
 }
 
 message Blank {
@@ -19,4 +21,8 @@ message CategoryIdentifier {
 message Category {
   string id = 1;
   string name = 2;
+}
+
+message Quantity {
+  int32 quantity = 1;
 }

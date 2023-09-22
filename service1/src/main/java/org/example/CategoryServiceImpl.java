@@ -39,4 +39,15 @@ public class CategoryServiceImpl extends CategoryServiceGrpc.CategoryServiceImpl
             }
         };
     }
+
+    @Override
+    public void getQuantity(CategoryIdentifier request, StreamObserver<Quantity> responseObserver) {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        responseObserver.onNext(Quantity.newBuilder().setQuantity(30).build());
+    }
 }
