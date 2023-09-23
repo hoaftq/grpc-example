@@ -8,6 +8,8 @@ service ProductService {
   rpc getAllProducts(google.protobuf.Empty) returns (stream ProductDetails) {};
   rpc getProducts(stream ProductIdentifier) returns (stream ProductDetails) {};
   rpc checkProductsAvailable(stream ProductRequest) returns (ProductRequestResult) {};
+
+  rpc getProductV2(ProductIdentifier) returns (ProductDetails) {}
 }
 
 message ProductIdentifier {
@@ -19,6 +21,9 @@ message ProductDetails {
   string name = 2;
   float price = 3;
   int32 stockQuantity = 4;
+
+  // This field doesn't exist in service2
+  string description = 5;
 }
 
 message ProductRequest {

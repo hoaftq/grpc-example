@@ -72,5 +72,13 @@ public class ProductServiceImpl extends ProductServiceGrpc.ProductServiceImplBas
                 responseObserver.onCompleted();
             }
         };
+
+
+    }
+
+    @Override
+    public void getProductV2(Product.ProductIdentifier request, StreamObserver<Product.ProductDetails> responseObserver) {
+        // New version of the API
+        super.getProductV2(request, responseObserver);
     }
 }
